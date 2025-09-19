@@ -1,0 +1,9 @@
+# Roblox Studio files
+*.rbxl.lock
+*.rbxlx.lock
+
+# Rojo generated files
+sourcemap.json
+
+# Efficiency config files
+.efficiency/
