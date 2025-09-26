@@ -6,8 +6,12 @@ function SpinnerComponent.new(part)
 	local self = setmetatable({}, SpinnerComponent)
 	
 	self.part = part
-	self.spinSpeed = 5
+	self.spinSpeed = part:GetAttribute("SpinSpeed") or 50 -- 每秒旋转角度
 	self.connection = nil
+
+	self.attributeChangedConnection = part:GetAttributeChangedSignal("SpinSpeed"):Connect(function()
+		self.spinSpeed = part:GetAttribute("SpinSpeed") or 50
+	end)
 	
 	return self
 end
@@ -30,6 +34,8 @@ end
 
 function SpinnerComponent:Destroy()
 	self:Stop()
+
+	self.attributeChangedConnection:Disconnect()
 	-- 清理引用，帮助垃圾回收
 	self.part = nil
 end
